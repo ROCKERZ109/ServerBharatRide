@@ -34,7 +34,7 @@ router.post('/:createNewUser',(req,res)=>{
 });
 router.get('/:users/:user',(req,res)=>{
     const {phone} = req.query;
-    mysqlConnection.query('select name from mainTable where phone = ?',[phone],(error,rows,fields)=>{
+    mysqlConnection.query('select * from mainTable where phone = ?',[phone],(error,rows,fields)=>{
         if(!error)
         {
             console.log('error');
