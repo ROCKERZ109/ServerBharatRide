@@ -18,9 +18,23 @@ mysqlConnection.query('select * from mainTable;',(error, rows, fields)=>{
     }
 })
 });
-router.get('/:users/:id',(req,res)=>{
-    const {univ} = req.query;
-    mysqlConnection.query('select name from mainTable where univ = ?',[univ],(error,rows,fields)=>{
+router.post('/:createNewUser',(req,res)=>{
+    const{phone,name,email,gender,univ}=req.body;
+    mysqlConnection.query('insert into mainTable values(?,?,?,?,?);',[phone,name,email,gender,univ],(error,rows,fields)=>
+    {
+        if(!error)
+        {
+            res.json({Status:'New User Created'});
+        }
+        else
+        {
+            console.log(error);
+        }
+    });
+});
+router.get('/:users/:user',(req,res)=>{
+    const {phone} = req.query;
+    mysqlConnection.query('select name from mainTable where phone = ?',[phone],(error,rows,fields)=>{
         if(!error)
         {
             console.log('error');
